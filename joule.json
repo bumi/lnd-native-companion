@@ -1,0 +1,9 @@
+{
+  "name": "joule",
+  "description": "Native companion for joule",
+  "path": "/home/bumi/src/lightning/area402/native/electron-v11.1.1-linux-x64/electron",
+  "type": "stdio",
+  "allowed_origins": [
+    "chrome-extension://ldghjccnbdbnbdimbnfgikigcppekffc/"
+  ]
+}
