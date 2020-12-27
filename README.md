@@ -24,7 +24,7 @@ electron/Electron.app/Contents/Resources/app/
 ├── package.json
 ├── index.js
 └── ...
-``
+```
 
 Windows and Linux:
 ```
