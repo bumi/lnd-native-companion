@@ -1,8 +1,5 @@
-const { app, BrowserWindow, ipcMain } = require('electron')
+const { app, ipcMain } = require('electron')
 const receiveMessages = require('./receiveMessages');
-const lnService = require('ln-service');
-const Store = require('electron-store');
-const store = new Store();
 
 const Executor = require('./executor');
 
