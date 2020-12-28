@@ -3,7 +3,7 @@ import React from 'react';
 import ipc from '../../utils/ipc';
 import store from '../../utils/store';
 
-class Enable extends React.Component {
+export default class Enable extends React.Component {
 
   constructor (props) {
     super(props);

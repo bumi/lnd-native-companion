@@ -5,7 +5,7 @@ import { createHashHistory } from 'history';
 import logo from './logo.svg';
 import './App.css';
 
-import Enable from './components/SignMessage';
+import Enable from './components/Enable';
 import Home from './components/Home';
 import MakeInvoice from './components/SendPayment';
 import Settings from './components/Settings';
