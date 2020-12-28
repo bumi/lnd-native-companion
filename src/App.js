@@ -5,6 +5,7 @@ import { createHashHistory } from 'history';
 import logo from './logo.svg';
 import './App.css';
 
+const crypto = require('crypto');
 //const Store = require('electron-store');
 //const store = new Store();
 
@@ -45,12 +46,26 @@ class SendPayment extends React.Component {
     const args = props.args || {};
     this.state = {
       paymentRequest: args.paymentRequest,
+      remember: false
     };
   }
 
   pay () {
+    if (this.state.remember && this.props.origin) {
+      const id = crypto.createHash('sha1').update(this.props.origin.domain).digest('hex');
+      store.set(`allowances.${id}`, {
+        domain: this.props.origin.domain,
+        amount: 0,
+        timeframe: 0
+      });
+    }
     const payResponse = ipcRenderer.sendSync(lndChannel, 'pay', {request: this.state.paymentRequest});
     ipcRenderer.sendSync(browserChannel, payResponse);
+  }
+
+  // TODO: implement proper allowance
+  toggleAllowance () {
+    this.setState({remember: !this.state.remember});
   }
 
   render () {
@@ -58,6 +73,8 @@ class SendPayment extends React.Component {
       <div>
         pay
         <p>{this.state.paymentRequest}</p>
+        <p>{this.props.origin.domain}</p>
+        <input type="checkbox" onChange={() => this.toggleAllowance()} />Remember?
         <button onClick={() => this.pay()}>Pay</button>
       </div>
     );
@@ -172,17 +189,57 @@ class Settings extends React.Component {
 
   constructor (props) {
     super(props);
-    this.state = store.get('settings.lnd', {});
+    this.history = createHashHistory();
+
+    let accounts = store.get('accounts', {});
+    let currentAccount = store.get('currentAccount', '');
+    let account = accounts[currentAccount] || {macaroon: '', cert: '', socket: ''};
+    this.state = {
+      showNewForm: currentAccount === '',
+      accounts,
+      currentAccount,
+      macaroon: account.macaroon,
+      cert: account.cert,
+      socket: account.socket
+    }
   }
 
   save () {
-    store.set({
-      'settings.lnd': {
-        macaroon: this.state.macaroon,
-        cert: this.state.cert,
-        socket: this.state.socket
-      }
+    let accountId = this.getAccountId(this.state.socket);
+    store.set('currentAccount', accountId);
+    store.set(`accounts.${accountId}`, {
+      macaroon: this.state.macaroon,
+      cert: this.state.cert,
+      socket: this.state.socket
     });
+    this.history.goBack();
+  }
+
+  getAccountId(socket) {
+    return crypto.createHash('sha1').update(socket).digest('hex');
+  }
+
+  selectAccount (accountId) {
+    if (accountId === 'new') {
+      this.setState({
+        showNewForm: true,
+        currentAccount: '',
+        macaroon: '',
+        cert: '',
+        socket: ''
+      });
+    } else {
+      let account = this.state.accounts[accountId] || {};
+      store.set('currentAccount', accountId);
+      this.setState({
+        showNewForm: false,
+        currentAccount: accountId,
+        macaroon: account.macaroon,
+        cert: account.cert,
+        socket: account.socket
+      });
+    this.history.goBack();
+    }
   }
 
   render () {
@@ -190,16 +247,29 @@ class Settings extends React.Component {
       <div>
         Settings
         <p>{JSON.stringify(this.state)}</p>
-        <p>
-          Macaroon: <input type="text" value={this.state.macaroon} onChange={(e) => this.setState({macaroon: e.target.value}) } />
-        </p>
-        <p>
-          Cert: <input type="text" value={this.state.cert} onChange={(e) => this.setState({cert: e.target.value}) } />
-        </p>
-        <p>
-          Address: <input type="text" value={this.state.socket} onChange={(e) => this.setState({socket: e.target.value}) } />
-        </p>
-        <button onClick={() => this.save()}>Save</button>
+        <select value={this.state.currentAccount} onChange={(e) => this.selectAccount(e.target.value)}>
+          <option key={'new'} value={'new'}>New Account</option>
+          {
+            Object.keys(this.state.accounts).map((accountId, index) => {
+              return <option key={accountId} value={accountId}>{this.state.accounts[accountId].socket}</option>
+            })
+          }
+        </select>
+        { this.state.showNewForm && (
+          <div>
+            New Account:
+            <p>
+              Macaroon: <input type="text" value={this.state.macaroon} onChange={(e) => this.setState({macaroon: e.target.value}) } />
+            </p>
+            <p>
+              Cert: <input type="text" value={this.state.cert} onChange={(e) => this.setState({cert: e.target.value}) } />
+            </p>
+            <p>
+              Address: <input type="text" value={this.state.socket} onChange={(e) => this.setState({socket: e.target.value}) } />
+            </p>
+            <button onClick={() => this.save()}>Save</button>
+          </div>
+        )}
       </div>
     );
   }
