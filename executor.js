@@ -15,7 +15,7 @@ module.exports = class Executor {
   }
 
   quit () {
-
+    this.app.quit();
   }
 
   ln(command, args) {
