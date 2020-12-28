@@ -36,6 +36,11 @@ export default class Settings extends React.Component {
     this.history.goBack();
   }
 
+  resetSettings () {
+    store.clear();
+    this.history.push('/');
+  }
+
   getAccountId(socket) {
     return crypto.createHash('sha1').update(socket).digest('hex');
   }
@@ -91,6 +96,7 @@ export default class Settings extends React.Component {
             <button onClick={() => this.save()}>Save</button>
           </div>
         )}
+        <p><button onClick={() => this.resetSettings()}>Reset settings</button></p>
       </div>
     );
   }

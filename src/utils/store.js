@@ -6,6 +6,9 @@ const store = {
   },
   set: (key, value) => {
     return ipcRenderer.sendSync('store', 'set', key, value);
+  },
+  clear: () => {
+    return ipcRenderer.sendSync('store', 'clear');
   }
 };
 

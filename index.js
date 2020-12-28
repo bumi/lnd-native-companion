@@ -37,5 +37,7 @@ ipcMain.on(storageChannel, (event, command, ...args) => {
     event.returnValue = executor.store.get(...args);
   } else if (command === 'set') {
     event.returnValue = executor.store.set(...args);
+  } else if (command === 'clear') {
+    event.returnValue = executor.store.clear();
   }
 });
