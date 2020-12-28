@@ -1,5 +1,5 @@
 const { app, BrowserWindow, ipcMain } = require('electron')
-const sendMessage = require('./protocol')(handleBrowserMessage);
+const receiveMessages = require('./receiveMessages');
 const lnService = require('ln-service');
 const Store = require('electron-store');
 const store = new Store();
@@ -12,9 +12,9 @@ const storageChannel = "store";
 
 const executor = new Executor(app);
 
-function handleBrowserMessage(message) {
+receiveMessages(message => {
   executor.handleBrowserMessage(message);
-}
+});
 
 app.on('window-all-closed', () => {
   app.quit();
