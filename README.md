@@ -57,5 +57,9 @@ Do not open the app in the browser. (it opens by default, just close it... it do
 Now install the [lightning-browser-extension](https://github.com/bumi/lightning-browser-extension)
 
 
+## HELP?
+
+The setup and everything is still very rough. Please reach out or create an issue, I am happy to help. 
+
 
 https://medium.com/folkdevelopers/the-ultimate-guide-to-electron-with-react-8df8d73f4c97
