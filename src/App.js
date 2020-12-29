@@ -9,7 +9,7 @@ import store from './utils/store';
 
 import Enable from './components/Enable';
 import Home from './components/Home';
-import MakeInvoice from './components/SendPayment';
+import MakeInvoice from './components/MakeInvoice';
 import Settings from './components/Settings';
 import SendPayment from './components/SendPayment';
 import SignMessage from './components/SignMessage';
@@ -69,7 +69,7 @@ class App extends React.Component {
             <Route exact path="/enable" render={(props) => <Enable args={this.state.args} origin={this.state.origin} />} />
             <Route exact path="/signMessage" render={(props) => <SignMessage args={this.state.args} origin={this.state.origin} />} />
             <Route exact path="/makeInvoice" render={(props) => <MakeInvoice args={this.state.args} origin={this.state.origin} />} />
-            <Route exact path="/SendPayment" render={(props) => <SendPayment args={this.state.args} origin={this.state.origin} />} />
+            <Route exact path="/sendPayment" render={(props) => <SendPayment args={this.state.args} origin={this.state.origin} />} />
             <Route component={NotSupported} />
           </Switch>
         </div>
