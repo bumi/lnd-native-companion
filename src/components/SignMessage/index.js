@@ -10,8 +10,8 @@ export default class SignMessage extends React.Component {
   }
 
   sign () {
-    const signature = ipc.lnd('signMessage', {message: this.state.message});
-    ipc.reply(signature);
+    const resp = ipc.lnd('signMessage', {message: this.state.message});
+    ipc.reply({message: this.state.message, signature: resp.data.signature});
   }
 
   render () {
