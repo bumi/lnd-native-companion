@@ -11,19 +11,20 @@ export default class MakeInvoice extends React.Component {
       defaultAmount: args.defaultAmount,
       minimumAmount: args.minimumAmount,
       maximumAmount: args.maximumAmount,
-      defaultMemo: args.defaultMemo
+      memo: args.defaultMemo
     };
   }
 
   makeInvoice () {
     const createInvoiceResponse = ipc.lnd('createInvoice', this.getInvoiceRequest());
-    ipc.reply(createInvoiceResponse);
+    ipc.reply({paymentRequest: createInvoiceResponse.data.request});
   }
 
   getInvoiceRequest () {
     return {
-      memo: this.state.memo,
-      amount: this.state.amount
+      description: this.state.memo,
+      tokens: parseInt(this.state.amount),
+      is_including_private_channels: true
     };
   }
 
@@ -31,8 +32,8 @@ export default class MakeInvoice extends React.Component {
     return (
       <div>
         make Invoice
-        <input type="text" onChange={(e) => this.setState({memo: e.target.value})} />
-        <input type="text" onChange={(e) => this.setState({amount: e.target.value})} />
+        Memo: <input type="text" value={this.state.memo} onChange={(e) => this.setState({memo: e.target.value})} />
+        Amount: <input type="text" value={this.state.amount }onChange={(e) => this.setState({amount: e.target.value})} />
         <button onClick={() => this.makeInvoice()}>Make Invoice</button>
       </div>
     );
