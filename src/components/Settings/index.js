@@ -33,7 +33,7 @@ export default class Settings extends React.Component {
       cert: this.state.cert,
       socket: this.state.socket
     });
-    this.history.goBack();
+    this.history.push('/');
   }
 
   resetSettings () {
