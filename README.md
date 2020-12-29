@@ -43,6 +43,15 @@ Currently I've only used Chrome for development.
 Copy or link the `joule.json` to `/etc/opt/chrome/native-messaging-hosts/joule.json` and configure the `path` as described above.
 
 
+### 3. Run local react.js server
+
+    $ npm start
+
+This should serve the frontend app on port 3000. 
+
+Do not open the app in the browser. (it opens by default, just close it... it does not work in the browser)
+
+
 ### Install the browser extension
 
 Now install the [lightning-browser-extension](https://github.com/bumi/lightning-browser-extension)
