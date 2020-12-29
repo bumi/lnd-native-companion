@@ -1,4 +1,4 @@
-const { BrowserWindow } = require('electron')
+const { BrowserWindow, Notification } = require('electron')
 const lnService = require('ln-service');
 const Store = require('electron-store');
 
@@ -19,6 +19,8 @@ module.exports = class Executor {
   }
 
   ln(command, args) {
+    // TODO: nice notifications for each lnd call
+    new Notification({title: 'Lightning', body: `Executing ${command} - ${JSON.stringify(args)}`}).show();
     return lnService[command]({
       lnd: this.lnd,
       ...args
