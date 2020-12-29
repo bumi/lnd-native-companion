@@ -63,7 +63,7 @@ class App extends React.Component {
           </p>
           <Switch>
             <Redirect exact from="/" to={this.state.currentCommand} />
-            <Route exact path="/home" component={Home} args={this.state.args} origin={this.state.origin}/>
+            <Route exact path="/home" render={(props) => <Home args={this.state.args} origin={this.state.origin} />} />
             <Route exact path="/settings" render={(props) => <Settings />} />
             <Route exact path="/setup" render={(props) => <Settings />} />
             <Route exact path="/enable" render={(props) => <Enable args={this.state.args} origin={this.state.origin} />} />
