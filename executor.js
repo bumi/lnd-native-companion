@@ -71,7 +71,7 @@ module.exports = class Executor {
 
   show(route, message) {
     if (this.window) {
-      this.window.loadURL(`http://localhost:3002/#${route}`);
+      this.window.loadURL(`http://localhost:3000/#/${route}`);
       if (message) {
         this.window.webContents.send('main', message);
       }
@@ -100,7 +100,7 @@ module.exports = class Executor {
       this.window.webContents.openDevTools();
       this.window.removeMenu();
 
-      this.window.loadURL(`http://localhost:3002/#${route}`);
+      this.window.loadURL(`http://localhost:3000/#/${route}`);
 
       this.window.once('ready-to-show', () => {
         this.window.show()
