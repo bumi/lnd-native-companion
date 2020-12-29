@@ -61,5 +61,3 @@ Now install the [lightning-browser-extension](https://github.com/bumi/lightning-
 
 The setup and everything is still very rough. Please reach out or create an issue, I am happy to help. 
 
-
-https://medium.com/folkdevelopers/the-ultimate-guide-to-electron-with-react-8df8d73f4c97
