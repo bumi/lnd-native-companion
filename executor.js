@@ -56,6 +56,9 @@ module.exports = class Executor {
   }
 
   handleBrowserMessage(message) {
+    if (Object.keys(this.accounts).length === 0) {
+      return this.show('/setup', message);
+    }
     const cmd = commands[message.command];
     if (cmd) {
       return cmd.apply(this, [message]);
