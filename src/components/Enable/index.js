@@ -3,6 +3,8 @@ import React from 'react';
 import ipc from '../../utils/ipc';
 import store from '../../utils/store';
 
+const crypto = require('crypto');
+
 export default class Enable extends React.Component {
 
   constructor (props) {
@@ -14,16 +16,20 @@ export default class Enable extends React.Component {
     }
   }
 
+  get domainId() {
+    return crypto.createHash('sha1').update(this.state.domain).digest('hex');
+  }
+
   allow () {
     if (this.state.remember) {
-      store.set(`enabledSites.${this.state.domain}`, true);
+      store.set(`enabledSites.${this.domainId}`, true);
     }
     ipc.reply({enabled: true});
   }
 
   reject () {
     if (this.state.remember) {
-      store.set(`enabledSites.${this.state.domain}`, false);
+      store.set(`enabledSites.${this.domainId}`, false);
     }
     ipc.reply({enabled: false});
   }
