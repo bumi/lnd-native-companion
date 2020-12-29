@@ -52,9 +52,20 @@ module.exports = class Executor {
   handleBrowserMessage(message) {
     const cmd = commands[message.command];
     if (cmd) {
-      cmd.apply(this, [message]);
+      return cmd.apply(this, [message]);
     } else {
-      this.launchWindow('/', message);
+      return this.show(`/${message.command}`, message);
+    }
+  }
+
+  show(route, message) {
+    if (this.window) {
+      this.window.loadURL(`http://localhost:3002/#${route}`);
+      if (message) {
+        this.window.webContents.send('main', message);
+      }
+    } else {
+      this.launchWindow(route, message);
     }
   }
 

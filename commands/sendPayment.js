@@ -18,6 +18,6 @@ module.exports = function (message) {
       })
       .catch(e => this.sendMessage({ error: e}));
   }
-  return this.launchWindow('/', message);
+  return this.show('/', message);
 }
 
