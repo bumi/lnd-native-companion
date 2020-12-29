@@ -26,13 +26,19 @@ module.exports = class Executor {
   }
 
   get accounts () {
-    return this.store.get('accounts', {});
+    if (!this._accounts) {
+      this._accounts = this.store.get('accounts', {});
+    }
+    return this._accounts;
   }
 
   initStore () {
     this.store = new Store();
     this.store.onDidChange('currentAccount', (newValue, oldValue) => {
       this.initLnd();
+    });
+    this.store.onDidChange('accounts', (newValue, oldValue) => {
+      this._accounts = newValue;
     });
   }
 
