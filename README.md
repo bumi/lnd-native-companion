@@ -1,6 +1,6 @@
 # LND Companion
 
-Native companion app for the [lightning browser extension](https://github.com/bumi/lightning-browser-extension) to connct to a LND node. 
+Native companion app for the [lightning browser extension](https://github.com/bumi/lightning-browser-extension) to connect to an LND node. 
 
 Under development!
 
