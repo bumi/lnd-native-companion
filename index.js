@@ -10,7 +10,9 @@ const storageChannel = "store";
 const executor = new Executor(app);
 
 receiveMessages(message => {
-  executor.handleBrowserMessage(message);
+  app.whenReady().then(() => {
+    executor.handleBrowserMessage(message);
+  });
 });
 
 app.on('window-all-closed', () => {
