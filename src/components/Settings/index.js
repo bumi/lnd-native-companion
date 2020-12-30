@@ -33,11 +33,18 @@ export default class Settings extends React.Component {
       socket: this.state.socket
     });
     store.set('currentAccount', accountId);
+    this.history.push('/current');
   }
 
   resetSettings () {
     store.clear();
-    this.history.push('/');
+    this.history.push('/current');
+  }
+
+  resetEnabledSites () {
+    store.set('enabledSites', {});
+    store.set('allowances', {});
+    this.history.push('/current');
   }
 
   getAccountId(socket) {
@@ -96,6 +103,7 @@ export default class Settings extends React.Component {
           </div>
         )}
         <p><button onClick={() => this.resetSettings()}>Reset settings</button></p>
+        <p><button onClick={() => this.resetEnabledSites()}>Reset enabled sites</button></p>
       </div>
     );
   }
