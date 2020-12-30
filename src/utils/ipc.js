@@ -6,6 +6,9 @@ const ipc = {
   },
   lnd: (command, args) => {
     return ipcRenderer.sendSync('lnd', command, args);
+  },
+  restart: () => {
+    return ipcRenderer.sendSync('main', 'restart');
   }
 };
 

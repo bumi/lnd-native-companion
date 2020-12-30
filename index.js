@@ -12,6 +12,7 @@ const Executor = require('./executor');
 const lndChannel = "lnd";
 const browserChannel = "browser";
 const storageChannel = "store";
+const mainChannel = "main";
 
 const executor = new Executor(app);
 
@@ -48,5 +49,12 @@ ipcMain.on(storageChannel, (event, command, ...args) => {
     event.returnValue = executor.store.set(...args);
   } else if (command === 'clear') {
     event.returnValue = executor.store.clear();
+  }
+});
+
+ipcMain.on(mainChannel, (event, command) => {
+  console.log(`Main channel ipc command: ${command}`);
+  if (command === 'restart') {
+    executor.processMessage();
   }
 });
