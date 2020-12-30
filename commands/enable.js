@@ -8,7 +8,7 @@ module.exports = function (message) {
   if (enabledSites[id] === true) {
     this.sendMessage({enabled: true});
   } else {
-    this.show('enable', message);
+    this.show('', message);
   }
 }
 

@@ -20,7 +20,13 @@ const { ipcRenderer } = window.require('electron');
 const NotSupported = () => {
   return (
     <div>Not supported</div>
-  )
+  );
+}
+
+const Loading = () => {
+  return (
+    <div>Loading</div>
+  );
 }
 
 class Restart extends React.Component {
@@ -29,7 +35,7 @@ class Restart extends React.Component {
     ipc.restart();
   }
   render () {
-    return (<div></div>)
+    return (<div></div>);
   }
 }
 
@@ -74,10 +80,13 @@ class App extends React.Component {
               </div>
             )}
           </div>
+          <div>
+          </div>
           <p>
             <Link to="/settings">Settings</Link>
           </p>
           <Switch>
+            <Route exact path="/" render={(props) => <Loading />} />
             <Route exact path="/home" render={(props) => <Home args={this.state.args} origin={this.state.origin} />} />
             <Route exact path="/current" render={(props) => <Redirect to={{pathname: this.state.currentCommand}} /> } />
             <Route exact path="/restart" render={(props) => <Restart /> } />
