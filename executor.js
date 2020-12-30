@@ -57,16 +57,25 @@ module.exports = class Executor {
     }
   }
 
-  handleBrowserMessage(message) {
+  processMessage () {
+    if (!this.currentBrowserMessage) {
+      return;
+    }
     if (Object.keys(this.accounts).length === 0) {
-      return this.show('/setup', message);
+      console.log(`No accounts found. Starting Setup`);
+      return this.show('setup');
     }
-    const cmd = commands[message.command];
+    const cmd = commands[this.currentBrowserMessage.command];
     if (cmd) {
-      return cmd.apply(this, [message]);
+      return cmd.apply(this, [this.currentBrowserMessage]);
     } else {
-      return this.show(`/${message.command}`, message);
+      return this.show(this.currentBrowserMessage.command, this.currentBrowserMessage);
     }
+  }
+
+  handleBrowserMessage(message) {
+    this.currentBrowserMessage = message;
+    this.processMessage();
   }
 
   show(route, message) {
