@@ -15,10 +15,12 @@ module.exports = class Executor {
   }
 
   quit () {
+    console.log('Bye');
     this.app.quit();
   }
 
   ln(command, args) {
+    console.log(`Calling LND: ${command}`);
     // TODO: nice notifications for each lnd call
     new Notification({title: 'Lightning', body: `Executing ${command} - ${JSON.stringify(args)}`}).show();
     return lnService[command]({

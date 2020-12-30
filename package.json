@@ -18,6 +18,7 @@
     "@testing-library/user-event": "^12.1.10",
     "chrome-native-messaging": "^0.2.0",
     "electron": "^11.1.1",
+    "electron-log": "^4.3.1",
     "electron-store": "^6.0.1",
     "install": "^0.13.0",
     "ln-service": "^50.9.5",

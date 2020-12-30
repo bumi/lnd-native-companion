@@ -1,4 +1,10 @@
 const { app, ipcMain } = require('electron')
+
+const log = require('electron-log');
+log.transports.file.level = true;
+log.transports.console.level = false;
+console.log = log.log;
+
 const receiveMessages = require('./receiveMessages');
 
 const Executor = require('./executor');
@@ -11,6 +17,7 @@ const executor = new Executor(app);
 
 receiveMessages(message => {
   app.whenReady().then(() => {
+    log.info(`New browser message: ${JSON.stringify(message)}`);
     executor.handleBrowserMessage(message);
   });
 });
