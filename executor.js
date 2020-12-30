@@ -93,6 +93,7 @@ module.exports = class Executor {
   }
 
   launchWindow(route, message) {
+    console.log(`Launching ${route}`);
     return this.app.whenReady().then(() => {
       this.window = new BrowserWindow({
         width: 800,
