@@ -37,6 +37,7 @@ module.exports = class Executor {
   initStore () {
     this.store = new Store();
     this.store.onDidChange('currentAccount', (newValue, oldValue) => {
+      this.currentAccount = newValue;
       this.initLnd();
     });
     this.store.onDidChange('accounts', (newValue, oldValue) => {

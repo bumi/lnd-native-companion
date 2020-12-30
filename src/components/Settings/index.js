@@ -27,13 +27,12 @@ export default class Settings extends React.Component {
 
   save () {
     let accountId = this.getAccountId(this.state.socket);
-    store.set('currentAccount', accountId);
     store.set(`accounts.${accountId}`, {
       macaroon: this.state.macaroon,
       cert: this.state.cert,
       socket: this.state.socket
     });
-    this.history.push('/');
+    store.set('currentAccount', accountId);
   }
 
   resetSettings () {
