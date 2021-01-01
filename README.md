@@ -57,6 +57,22 @@ Do not open the app in the browser. (it opens by default, just close it... it do
 Now install the [lightning-browser-extension](https://github.com/bumi/lightning-browser-extension)
 
 
+## Logs
+
+We use [electron-log](https://www.npmjs.com/package/electron-log) for logging. (you can not log to STDOUT because 
+that's how the browser communicates with the companion)
+
+By default, it writes logs to the following locations:
+
+on Linux: `~/.config/{app name}/logs/{process type}.log`
+on macOS: `~/Library/Logs/{app name}/{process type}.log`
+on Windows: `%USERPROFILE%\AppData\Roaming\{app name}\logs\{process type}.log`
+
+e.g.
+
+    $ tail -f ~/.config/lnd-native-companion/logs/main.log ~/.config/lnd-native-companion/logs/renderer.log 
+
+
 ## HELP?
 
 The setup and everything is still very rough. Please reach out or create an issue, I am happy to help. 
