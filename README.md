@@ -36,11 +36,15 @@ electron/resources/app
 
 Then use the absolute path to Electron.app on macOS, electron on Linux, or electron.exe on Windows in your host JSON file (joule.json).
 
+On OSX you have to use the full path to the `Electron` executable in your Electron.app. For example: 
+`/Users/bumi/src/lightning/lnd-native-companion/Electron.app/Contents/MacOS/Electron`
+
+
 ### 2. Configure native messaging host
 
 Currently I've only used Chrome for development.
 
-Copy or link the `joule.json` to `/etc/opt/chrome/native-messaging-hosts/joule.json` and configure the `path` as described above and check if the ID in the `allowed_origins` list matches.
+Copy or link the `joule.json` to `/etc/opt/chrome/native-messaging-hosts/joule.json` and configure the `path` as described above and check if the ID in the `allowed_origins` list matches with the ID of the browser extension.
 
 
 ### 3. Run local react.js server
