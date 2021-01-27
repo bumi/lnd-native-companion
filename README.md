@@ -40,7 +40,7 @@ Then use the absolute path to Electron.app on macOS, electron on Linux, or elect
 
 Currently I've only used Chrome for development.
 
-Copy or link the `joule.json` to `/etc/opt/chrome/native-messaging-hosts/joule.json` and configure the `path` as described above.
+Copy or link the `joule.json` to `/etc/opt/chrome/native-messaging-hosts/joule.json` and configure the `path` as described above and check if the ID in the `allowed_origins` list matches.
 
 
 ### 3. Run local react.js server
